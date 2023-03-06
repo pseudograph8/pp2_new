@@ -4,9 +4,10 @@
 
 import re
 
-snake = input().lower().title()
+snake = input()
+snake1 = snake[0].lower() + snake[1:].lower().title()
 
-camel = re.sub(r"(_|-)+", " ", snake).replace(" ", "")
+camel = re.sub(r"(_|-)+", " ", snake1).replace(" ", "")
 
 print(camel)
 
