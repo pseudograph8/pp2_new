@@ -15,6 +15,7 @@ def game():
     red = (255,0,0)
     white = (255,255,255)
     green = (0, 255, 0)
+    yellow = (238,255,27)
 
     #black line to divided monitor
     head_line_start = (0,100)
@@ -28,6 +29,10 @@ def game():
     speed = 1
     level = ['easy','normal','hard','very hard', 'impossible', 'impossible x2', 'death']
     score_font = pygame.font.SysFont('lunchtime Double So',32)
+
+    banana = (random.randint(1, monitor.get_width() / 10 - 1) * 10, random.randint(10, monitor.get_height() / 10 - 1) * 10)
+    banana_spawn = True
+
 
     #direction of snake
     change = 'left'
@@ -86,6 +91,11 @@ def game():
             apple = (random.randint(1,monitor.get_width() / 10 - 1) * 10, random.randint(10, monitor.get_height() / 10 - 1) * 10)
             if apple not in snake:
                 apple_spawn = False
+
+        while banana_spawn:
+            banana = (random.randint(1,monitor.get_width() / 10 - 1) * 10, random.randint(10, monitor.get_height() / 10 - 1) * 10)
+            if banana not in snake:
+                banana_spawn = False
                 
         snake.insert(0, list(player))
               
@@ -94,6 +104,11 @@ def game():
             score += 1
             apple_spawn = True
             speed = score // 4 + 1
+        elif player[0] == banana[0] and player[1] == banana[1]:
+            score += 2
+            banana_spawn = True
+            speed = score // 4 + 1
+            snake.pop()
         else:
             snake.pop()
         
@@ -103,7 +118,7 @@ def game():
         #line
         pygame.draw.line(monitor, black, head_line_start, head_line_end, 1)
         
-        #Границы(Если змея пони)
+        #Границы
         if ((player[0] < -5 or player[0] > monitor.get_width() - 5) or (player[1] < 100 or player[1] > monitor.get_height() - 5)):
             break
         
@@ -118,8 +133,12 @@ def game():
         #Прорисовка объектов, к примеру это змея
         for pos in snake:
             pygame.draw.rect(monitor, black, pygame.Rect(pos[0], pos[1], 10, 10))
+        
         #Прорисовка яблока
         pygame.draw.rect(monitor, red, pygame.Rect(apple[0], apple[1],10,10))
+
+        #Прорисовка банана
+        pygame.draw.rect(monitor, yellow, pygame.Rect(banana[0], banana[1],10,10))
         
         #Show score and level (level up if score +4) Мы заполняем правый верний угол информацией о текущей игре
         monitor.blit(score_font.render(f'Score: {score}' , True, black) , (20,38))
