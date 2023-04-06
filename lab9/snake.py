@@ -45,6 +45,9 @@ def game():
     #FPS
     clock = pygame.time.Clock()
 
+    end_time = pygame.time.get_ticks() + 30000
+    text = pygame.image.load('assets/blue.png')
+
     check = True
 
     while check:
@@ -98,17 +101,22 @@ def game():
                 banana_spawn = False
                 
         snake.insert(0, list(player))
-              
-        #Eat apple and change score (Когда кординаты пикселей совпадают, то это засчитывается за съедение яблока. При поедании каждого 4 яблока скорость будет увеличиваться)  
-        if player[0] == apple[0] and player[1] == apple[1]:
-            score += 1
-            apple_spawn = True
-            speed = score // 4 + 1
-        elif player[0] == banana[0] and player[1] == banana[1]:
-            score += 2
-            banana_spawn = True
-            speed = score // 4 + 1
-            snake.pop()
+        
+        # for timer
+        current_time = pygame.time.get_ticks()
+        if current_time < end_time:
+            monitor.blit(text, text.get_rect(center = monitor.get_rect().center))
+
+        #Eat apple or banana and change score (Когда кординаты пикселей совпадают, то это засчитывается за съедение яблока) 
+        if (player[0] == apple[0] and player[1] == apple[1]) or (player[0] == banana[0] and player[1] == banana[1]):
+            if player[0] == apple[0] and player[1] == apple[1]:
+                score += 1
+                apple_spawn = True
+                speed = score // 4 + 1
+            elif player[0] == banana[0] and player[1] == banana[1]:
+                score += 2
+                banana_spawn = True
+                speed = score // 6 + 1
         else:
             snake.pop()
         
@@ -123,8 +131,8 @@ def game():
             break
         
         #Cordinates writer in terminal
-        print(snake[1:])
-        print(player)
+        # print(snake[1:])
+        # print(player)
         
         #We can`t eat our body`
         if player in snake[1:]:
@@ -135,10 +143,10 @@ def game():
             pygame.draw.rect(monitor, black, pygame.Rect(pos[0], pos[1], 10, 10))
         
         #Прорисовка яблока
-        pygame.draw.rect(monitor, red, pygame.Rect(apple[0], apple[1],10,10))
+        pygame.draw.rect(monitor, red, pygame.Rect(apple[0], apple[1], 10, 10))
 
         #Прорисовка банана
-        pygame.draw.rect(monitor, yellow, pygame.Rect(banana[0], banana[1],10,10))
+        pygame.draw.rect(monitor, yellow, pygame.Rect(banana[0], banana[1], 10, 10))
         
         #Show score and level (level up if score +4) Мы заполняем правый верний угол информацией о текущей игре
         monitor.blit(score_font.render(f'Score: {score}' , True, black) , (20,38))
