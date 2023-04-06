@@ -79,7 +79,7 @@ class Coin(pygame.sprite.Sprite):
         self.weight = 1
         self.mask = pygame.mask.from_surface(self.image)
 
-    #Движение монеток схожи с движением вражеской машины. Количество монеток можно изменить ниже
+    #Движение монеток схожи с движением вражеской машины. 
     def move(self):
         global SCORE_COIN
         if self.rect.top > SCREEN_HEIGHT:
