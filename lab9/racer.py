@@ -10,6 +10,7 @@ pygame.init()
 FPS = 60
 FramePerSec = pygame.time.Clock()
 
+
 #Creating colors
 BLUE  = (0, 0, 255)
 RED   = (255, 0, 0)
@@ -155,8 +156,7 @@ while True:
         SPEED_ENEMY += 0.2
     if SCORE_COIN == 60:
         SPEED_ENEMY += 0.2
-
-
+        
     #Moves and Re-draws all Sprites
     for entity in all_sprites:
         entity.move()
