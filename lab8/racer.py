@@ -70,7 +70,7 @@ class Player(pygame.sprite.Sprite):
               if pressed_keys[K_RIGHT]:
                   self.rect.move_ip(5, 0)
 class Coin(pygame.sprite.Sprite):
-    #Генерация монеток
+    # Генерация монеток
     def __init__(self):
         super().__init__()
         self.image = pygame.image.load("assets/coin2.png")
@@ -79,7 +79,7 @@ class Coin(pygame.sprite.Sprite):
         self.weight = 1
         self.mask = pygame.mask.from_surface(self.image)
 
-    #Движение монеток схожи с движением вражеской машины. 
+    # Движение монеток схожи с движением вражеской машины. 
     def move(self):
         global SCORE_COIN
         if self.rect.top > SCREEN_HEIGHT:
