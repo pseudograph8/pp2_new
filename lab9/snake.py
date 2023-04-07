@@ -49,7 +49,7 @@ def game():
     clock = pygame.time.Clock()
     
     # for timer kiwi-fruit
-    pygame.time.set_timer(pygame.USEREVENT, 10000)
+    pygame.time.set_timer(pygame.USEREVENT, 8000)
     kiwi_timer = True
 
     check = True
@@ -116,18 +116,18 @@ def game():
         snake.insert(0, list(player))
         
         #Обновления монитора, без этой команды змея будет увеличиваться если не будет направления, а при изменения направления размер змеи возвращается на исходный размер
-        monitor.fill(green)
+        monitor.fill((142,236,123))
 
         if kiwi_timer:
             #Прорисовка kiwi
-            pygame.draw.rect(monitor, (50,50,50), pygame.Rect(kiwi[0], kiwi[1], 10, 10))
+            pygame.draw.rect(monitor, (51,154,31), pygame.Rect(kiwi[0], kiwi[1], 10, 10))
     
         #Eat apple or banana and change score (Когда кординаты пикселей совпадают, то это засчитывается за съедение яблока) 
         if (player[0] == apple[0] and player[1] == apple[1]) or (player[0] == banana[0] and player[1] == banana[1]) or (player[0] == kiwi[0] and player[1] == kiwi[1]):
             speed = score // 4 + 1
             if player[0] == apple[0] and player[1] == apple[1]:
                 score += 1
-                apple_spawn = True  
+                apple_spawn = True 
             elif player[0] == banana[0] and player[1] == banana[1]:
                 score += 2
                 banana_spawn = True
@@ -148,16 +148,16 @@ def game():
         #We can`t eat our body`
         if player in snake[1:]:
             break
-        
+         
         #Прорисовка объектов, к примеру это змея
         for pos in snake:
             pygame.draw.rect(monitor, black, pygame.Rect(pos[0], pos[1], 10, 10))
         
         #Прорисовка яблока
         pygame.draw.rect(monitor, red, pygame.Rect(apple[0], apple[1], 10, 10))
-
         #Прорисовка банана
         pygame.draw.rect(monitor, yellow, pygame.Rect(banana[0], banana[1], 10, 10))
+
         
         #Show score and level (level up if score +4) Мы заполняем правый верний угол информацией о текущей игре
         monitor.blit(score_font.render(f'Score: {score}' , True, black) , (20,38))
