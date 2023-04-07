@@ -111,7 +111,7 @@ def game():
         if (player[0] == apple[0] and player[1] == apple[1]) or (player[0] == banana[0] and player[1] == banana[1]):
             if player[0] == apple[0] and player[1] == apple[1]:
                 score += 1
-                apple_spawn = True
+                apple_spawn = True 
                 speed = score // 4 + 1
             elif player[0] == banana[0] and player[1] == banana[1]:
                 score += 2
