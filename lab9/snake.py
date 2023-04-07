@@ -21,17 +21,20 @@ def game():
     head_line_start = (0,100)
     head_line_end = (400,100)
 
-
-    #Инструменты кода
+    #Food: apple and banana
     apple = (random.randint(1, monitor.get_width() / 10 - 1) * 10, random.randint(10, monitor.get_height() / 10 - 1) * 10)
     apple_spawn = True
+    
+    banana = (random.randint(1, monitor.get_width() / 10 - 1) * 10, random.randint(10, monitor.get_height() / 10 - 1) * 10)
+    banana_spawn = True
+
+    kiwi = (random.randint(1, monitor.get_width() / 10 - 1) * 10, random.randint(10, monitor.get_height() / 10 - 1) * 10)
+    kiwi_spawn = True
+
     score = 0
     speed = 1
     level = ['easy','normal','hard','very hard', 'impossible', 'impossible x2', 'death']
     score_font = pygame.font.SysFont('lunchtime Double So',32)
-
-    banana = (random.randint(1, monitor.get_width() / 10 - 1) * 10, random.randint(10, monitor.get_height() / 10 - 1) * 10)
-    banana_spawn = True
 
 
     #direction of snake
@@ -44,9 +47,10 @@ def game():
 
     #FPS
     clock = pygame.time.Clock()
-
-    end_time = pygame.time.get_ticks() + 30000
-    text = pygame.image.load('assets/blue.png')
+    
+    # for timer kiwi-fruit
+    pygame.time.set_timer(pygame.USEREVENT, 10000)
+    kiwi_timer = True
 
     check = True
 
@@ -55,7 +59,10 @@ def game():
         #Exit
             if action.type == pygame.QUIT:
                 check = False
-                pygame.quit()
+                #pygame.quit()
+            elif action.type == pygame.USEREVENT:
+                kiwi_timer = not kiwi_timer
+    
             
             #Keyboard
             if action.type == pygame.KEYDOWN:
@@ -99,29 +106,37 @@ def game():
             banana = (random.randint(1,monitor.get_width() / 10 - 1) * 10, random.randint(10, monitor.get_height() / 10 - 1) * 10)
             if banana not in snake:
                 banana_spawn = False
+
+        while kiwi_spawn:
+                kiwi = (random.randint(1,monitor.get_width() / 10 - 1) * 10, random.randint(10, monitor.get_height() / 10 - 1) * 10)
+                if kiwi not in snake:
+                    kiwi_spawn = False
+
                 
         snake.insert(0, list(player))
         
-        # for timer
-        current_time = pygame.time.get_ticks()
-        if current_time < end_time:
-            monitor.blit(text, text.get_rect(center = monitor.get_rect().center))
+        #Обновления монитора, без этой команды змея будет увеличиваться если не будет направления, а при изменения направления размер змеи возвращается на исходный размер
+        monitor.fill(green)
 
+        if kiwi_timer:
+            #Прорисовка kiwi
+            pygame.draw.rect(monitor, (50,50,50), pygame.Rect(kiwi[0], kiwi[1], 10, 10))
+    
         #Eat apple or banana and change score (Когда кординаты пикселей совпадают, то это засчитывается за съедение яблока) 
-        if (player[0] == apple[0] and player[1] == apple[1]) or (player[0] == banana[0] and player[1] == banana[1]):
+        if (player[0] == apple[0] and player[1] == apple[1]) or (player[0] == banana[0] and player[1] == banana[1]) or (player[0] == kiwi[0] and player[1] == kiwi[1]):
+            speed = score // 4 + 1
             if player[0] == apple[0] and player[1] == apple[1]:
                 score += 1
-                apple_spawn = True 
-                speed = score // 4 + 1
+                apple_spawn = True  
             elif player[0] == banana[0] and player[1] == banana[1]:
                 score += 2
                 banana_spawn = True
-                speed = score // 6 + 1
+            elif player[0] == kiwi[0] and player[1] == kiwi[1]:
+                score += 1
+                kiwi_spawn = True
         else:
             snake.pop()
         
-        #Обновления монитора, без этой команды змея будет увеличиваться если не будет направления, а при изменения направления размер змеи возвращается на исходный размер
-        monitor.fill(green)
         
         #line
         pygame.draw.line(monitor, black, head_line_start, head_line_end, 1)
@@ -129,10 +144,6 @@ def game():
         #Границы
         if ((player[0] < -5 or player[0] > monitor.get_width() - 5) or (player[1] < 100 or player[1] > monitor.get_height() - 5)):
             break
-        
-        #Cordinates writer in terminal
-        # print(snake[1:])
-        # print(player)
         
         #We can`t eat our body`
         if player in snake[1:]:
