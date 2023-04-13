@@ -139,7 +139,7 @@ while check:
         if action.key == pygame.K_e:
             erase()
         
-        #Rectange (t - от слова төртбұрыш)
+        #Rectangle
         if action.key == pygame.K_r:
             rectangle()
         #Circle
@@ -148,10 +148,13 @@ while check:
         # Square
         if action.key == pygame.K_s:
             square()
+        # Triangle
         if action.key == pygame.K_t:
             equilateral_triangle()
+        # Tik buryshty 3b
         if action.key == pygame.K_x:
             right_triangle()
+        #RomB
         if action.key == pygame.K_b:
             rhombus()
 
