@@ -107,10 +107,6 @@ def game():
         if ((player[0] < -5 or player[0] > monitor.get_width() - 5) or (player[1] < 100 or player[1] > monitor.get_height() - 5)):
             break
         
-        #Cordinates writer in terminal
-        print(snake[1:])
-        print(player)
-        
         #We can`t eat our body`
         if player in snake[1:]:
             break
