@@ -10,7 +10,7 @@ def delete_part(first_name):
 
         cur = conn.cursor()
 
-         # execute the UPDATE  statement
+         # execute the DELETE statement
         cur.execute("DELETE FROM phonebook WHERE first_name = %s", (first_name,))
 
         # close communication with the PostgreSQL database server
