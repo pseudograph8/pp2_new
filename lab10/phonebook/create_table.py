@@ -1,11 +1,8 @@
 import psycopg2
 
-# changing phone number by first name
-def update_phonebook(id, phone_number):
-    """ update vendor name based on the vendor id """
-    sql = """ UPDATE phonebook
-                SET phone_number = %s
-                WHERE id = %s"""
+
+def create_phonebook():
+    """ create a table"""
     conn = None
 
     try:
@@ -21,6 +18,7 @@ def update_phonebook(id, phone_number):
             );
         """)
 
+        # insert some values
         cur.execute("""INSERT INTO phonebook (id, first_name, phone_number) VALUES
         (1, 'Aruzhan', '+7475637615'),
         (2, 'Firuza', '+77084236847'),
@@ -28,20 +26,6 @@ def update_phonebook(id, phone_number):
         (4, 'Aina', '+77012995405'),
         (5, 'James', '+75005412698');
         """)
-
-        
-
-        # print user with the id = 1
-        # cur.execute("""SELECT * FROM phonebook WHERE id = 1;""")
-        # print(cur.fetchone())
-
-        # sql = cur.mogrify("""SELECT * FROM phonebook WHERE starts_with(first_name, %s)""", ("A"))
-        # print(sql)
-        # cur.execute(sql)
-        # print(cur.fetchall())
-
-        # execute the UPDATE  statement
-        cur.execute(sql, (id, phone_number))
 
         # close communication with the PostgreSQL database server
         cur.close()
@@ -56,5 +40,4 @@ def update_phonebook(id, phone_number):
             conn.close()
 
 if __name__ == '__main__':
-    # Update id 
-    update_phonebook('+75854785624', 5)
+    create_phonebook()
