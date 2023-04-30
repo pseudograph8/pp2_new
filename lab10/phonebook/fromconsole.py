@@ -8,7 +8,9 @@ try:
     conn = psycopg2.connect(host="localhost", dbname="postgres", user="postgres", password="seidazym", port = 5432)
     cur = conn.cursor()
 
-    cur.execute("""CREATE TABLE IF NOT EXISTS phoneBook (
+    cur.execute("""
+    DROP TABLE IF EXISTS phonebook;
+    CREATE TABLE IF NOT EXISTS phonebook (
             id INT PRIMARY KEY,
             first_name VARCHAR(255),
             phone_number VARCHAR(255)

@@ -7,7 +7,8 @@ cur = conn.cursor()
 
 
 #create table with same headers as csv file
-cur.execute("""CREATE TABLE IF NOT EXISTS phoneBook (
+cur.execute("""DROP TABLE IF EXISTS phonebook;
+CREATE TABLE IF NOT EXISTS phoneBook (
             id INT PRIMARY KEY,
             first_name VARCHAR(255),
             phone_number VARCHAR(255)
