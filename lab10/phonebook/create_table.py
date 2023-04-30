@@ -20,11 +20,15 @@ def create_phonebook():
 
         # insert some values
         cur.execute("""INSERT INTO phonebook (id, first_name, phone_number) VALUES
-        (1, 'Aruzhan', '+7475637615'),
+        (1, 'Aknur', '+77475637615'),
         (2, 'Firuza', '+77084236847'),
-        (3, 'Aknur', '+77082995405'),
+        (3, 'Aruzhan', '+77082995405'),
         (4, 'Aina', '+77012995405'),
-        (5, 'James', '+75005412698');
+        (5, 'Saira', '+77012995005'),
+        (6, 'Sabrina', '+77012995500'),
+        (7, 'Mike', '+77012995852'),
+        (8, 'Dad', '+77012998000'),
+        (9, 'James', '+75005412698');
         """)
 
         # close communication with the PostgreSQL database server
