@@ -10,7 +10,7 @@ def procedure():
     ('Sabrina', '77012995500'),
     ('Armin', '77012995002'),
     ('Dazai', '+77012995507')
-    RETURNING phone_number LIKE '7%';
+    RETURNING phone_number NOT LIKE '7%';
  """
     conn = None
 
