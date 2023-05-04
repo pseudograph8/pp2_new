@@ -23,7 +23,7 @@ def pattern():
 
         cur = conn.cursor()
 
-        cur.execute(sql_by_phone)
+        cur.execute(sql_by_name)
         row = cur.fetchone()
 
         while row is not None:

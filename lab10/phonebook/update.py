@@ -1,11 +1,11 @@
 import psycopg2
 
 # changing phone number by id
-def update_phonebook(phone_number, id):
+def update_phonebook(phone_number, first_name):
     """ update vendor name based on the vendor id """
     sql = """ UPDATE phonebook
                 SET phone_number = %s
-                WHERE id = %s"""
+                WHERE first_name = %s"""
     conn = None
 
     try:
@@ -14,7 +14,7 @@ def update_phonebook(phone_number, id):
         cur = conn.cursor()
 
         # execute the UPDATE  statement
-        cur.execute(sql, (phone_number, id))
+        cur.execute(sql, (phone_number, first_name))
 
         # close communication with the PostgreSQL database server
         cur.close()
@@ -30,4 +30,4 @@ def update_phonebook(phone_number, id):
 
 if __name__ == '__main__':
     # Update 
-    update_phonebook('+75854785601', 5)
+    update_phonebook('+75854785600', 'Aruzhan')
